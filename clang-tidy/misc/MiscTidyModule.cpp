@@ -35,6 +35,7 @@
 #include "ThrowByValueCatchByReferenceCheck.h"
 #include "UnconventionalAssignOperatorCheck.h"
 #include "UndelegatedConstructor.h"
+#include "UniqueptrReleaseUnusedRetvalCheck.h"
 #include "UniqueptrResetReleaseCheck.h"
 #include "UnusedAliasDeclsCheck.h"
 #include "UnusedParametersCheck.h"
@@ -94,6 +95,8 @@ public:
         "misc-throw-by-value-catch-by-reference");
     CheckFactories.registerCheck<UndelegatedConstructorCheck>(
         "misc-undelegated-constructor");
+    CheckFactories.registerCheck<UniqueptrReleaseUnusedRetvalCheck>(
+        "misc-uniqueptr-release-unused-retval");
     CheckFactories.registerCheck<UniqueptrResetReleaseCheck>(
         "misc-uniqueptr-reset-release");
     CheckFactories.registerCheck<UnusedAliasDeclsCheck>(

@@ -158,6 +158,11 @@ Improvements to clang-tidy
   Finds uses of bitwise operations on signed integer types, which may lead to 
   undefined or implementation defined behaviour.
 
+- New `misc-uniqueptr-release-unused-retval
+  <http://clang.llvm.org/extra/clang-tidy/checks/misc-uniqueptr-release-unused-retval.html>`_ check
+
+  Warns if the return value of ``std::unique_ptr::release()`` is not used.
+
 - New `objc-avoid-nserror-init
   <http://clang.llvm.org/extra/clang-tidy/checks/objc-avoid-nserror-init.html>`_ check
 
