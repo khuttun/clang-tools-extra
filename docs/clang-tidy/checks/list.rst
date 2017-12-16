@@ -32,6 +32,7 @@ Clang-Tidy Checks
    bugprone-string-constructor
    bugprone-suspicious-memset-usage
    bugprone-undefined-memory-manipulation
+   bugprone-unused-return-value
    bugprone-use-after-move
    bugprone-virtual-near-miss
    cert-dcl03-c (redirects to misc-static-assert) <cert-dcl03-c>

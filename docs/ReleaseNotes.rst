@@ -57,6 +57,11 @@ The improvements are...
 Improvements to clang-tidy
 --------------------------
 
+- New `bugprone-unused-return-value
+  <http://clang.llvm.org/extra/clang-tidy/checks/bugprone-unused-return-value.html>`_ check
+
+  FIXME: add release notes.
+
 - New module `fuchsia` for Fuchsia style checks.
 
 - New module `objc` for Objective-C style checks.
