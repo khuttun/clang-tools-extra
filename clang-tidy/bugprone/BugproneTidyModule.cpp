@@ -25,6 +25,7 @@
 #include "StringConstructorCheck.h"
 #include "SuspiciousMemsetUsageCheck.h"
 #include "UndefinedMemoryManipulationCheck.h"
+#include "UnusedReturnValueCheck.h"
 #include "UseAfterMoveCheck.h"
 #include "VirtualNearMissCheck.h"
 
@@ -65,6 +66,8 @@ public:
         "bugprone-suspicious-memset-usage");
     CheckFactories.registerCheck<UndefinedMemoryManipulationCheck>(
         "bugprone-undefined-memory-manipulation");
+    CheckFactories.registerCheck<UnusedReturnValueCheck>(
+        "bugprone-unused-return-value");
     CheckFactories.registerCheck<UseAfterMoveCheck>(
         "bugprone-use-after-move");
     CheckFactories.registerCheck<VirtualNearMissCheck>(

@@ -125,6 +125,11 @@ Improvements to clang-tidy
   a memory allocation function (``malloc()``, ``calloc()``, ``realloc()``,
   ``alloca()``) or the ``new[]`` operator in `C++`.
 
+- New `bugprone-unused-return-value
+  <http://clang.llvm.org/extra/clang-tidy/checks/bugprone-unused-return-value.html>`_ check
+
+  Warns on unused function return values.
+
 - New `cppcoreguidelines-owning-memory <http://clang.llvm.org/extra/clang-tidy/checks/cppcoreguidelines-owning-memory.html>`_ check 
 
   This check implements the type-based semantic of ``gsl::owner<T*>``, but without

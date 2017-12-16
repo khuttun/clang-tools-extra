@@ -17,6 +17,7 @@ add_clang_library(clangTidyBugproneModule
   StringConstructorCheck.cpp
   SuspiciousMemsetUsageCheck.cpp
   UndefinedMemoryManipulationCheck.cpp
+  UnusedReturnValueCheck.cpp
   UseAfterMoveCheck.cpp
   VirtualNearMissCheck.cpp
 
