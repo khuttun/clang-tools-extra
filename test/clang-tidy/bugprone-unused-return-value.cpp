@@ -48,6 +48,15 @@ struct scoped_allocator_adaptor : public OuterAlloc {
   pointer allocate(size_type, const_void_pointer);
 };
 
+template <typename T>
+struct default_delete {};
+
+template <typename T, typename Deleter = default_delete<T>>
+struct unique_ptr {
+  using pointer = T *;
+  pointer release() noexcept;
+};
+
 template <typename T, typename Allocator = allocator<T>>
 struct vector {
   bool empty() const noexcept;
@@ -90,7 +99,7 @@ struct FooAlloc {
   using value_type = Foo;
 };
 
-void WarningBasic() {
+void warning() {
   std::async(increment, 42);
   // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
 
@@ -99,6 +108,10 @@ void WarningBasic() {
 
   Foo F;
   std::launder(&F);
+  // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
+
+  std::unique_ptr<Foo> UP;
+  UP.release();
   // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
 
   std::allocator<Foo> FA;
@@ -118,14 +131,6 @@ void WarningBasic() {
   SAA.allocate(1, nullptr);
   // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
 
-  std::vector<Foo> FV;
-  FV.empty();
-  // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
-
-  std::filesystem::path P;
-  P.empty();
-  // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
-
   std::pmr::memory_resource MR;
   MR.allocate(1);
   // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
@@ -133,24 +138,17 @@ void WarningBasic() {
   std::pmr::polymorphic_allocator<Foo> PA;
   PA.allocate(1);
   // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
+
+  std::vector<Foo> FV;
+  FV.empty();
+  // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
+
+  std::filesystem::path P;
+  P.empty();
+  // CHECK-MESSAGES: [[@LINE-1]]:3: warning: unused return value [bugprone-unused-return-value]
 }
 
-void WarningSpecial() {
-  (std::async(increment, 42));
-  // CHECK-MESSAGES: [[@LINE-1]]:4: warning: unused return value [bugprone-unused-return-value]
-
-  Foo FCast;
-  reinterpret_cast<char *>(std::launder(&FCast));
-  // CHECK-MESSAGES: [[@LINE-1]]:28: warning: unused return value [bugprone-unused-return-value]
-
-  std::vector<Foo> FVParenCast;
-  (FVParenCast.empty());
-  // CHECK-MESSAGES: [[@LINE-1]]:4: warning: unused return value [bugprone-unused-return-value]
-  reinterpret_cast<char *>(FVParenCast.empty());
-  // CHECK-MESSAGES: [[@LINE-1]]:28: warning: unused return value [bugprone-unused-return-value]
-}
-
-void NoWarning() {
+void noWarning() {
   auto AsyncRetval1 = std::async(increment, 42);
   auto AsyncRetval2 = std::async(std::launch::async, increment, 42);
   useFuture(std::async(increment, 42));
@@ -159,6 +157,9 @@ void NoWarning() {
   auto LaunderRetval = std::launder(&FNoWarning);
   std::launder(&FNoWarning)->f();
   delete std::launder(&FNoWarning);
+
+  std::unique_ptr<Foo> UPNoWarning;
+  auto ReleaseRetval = UPNoWarning.release();
 
   std::allocator<Foo> FANoWarning;
   auto AllocRetval1 = FANoWarning.allocate(1, nullptr);
@@ -171,15 +172,17 @@ void NoWarning() {
   auto AllocRetval5 = SAANoWarning.allocate(1);
   auto AllocRetval6 = SAANoWarning.allocate(1, nullptr);
 
+  std::pmr::memory_resource MRNoWarning;
+  auto AllocRetval7 = MRNoWarning.allocate(1);
+
+  std::pmr::polymorphic_allocator<Foo> PANoWarning;
+  auto AllocRetval8 = PANoWarning.allocate(1);
+
   std::vector<Foo> FVNoWarning;
   auto VectorEmptyRetval = FVNoWarning.empty();
 
   std::filesystem::path PNoWarning;
   auto PathEmptyRetval = PNoWarning.empty();
 
-  std::pmr::memory_resource MRNoWarning;
-  auto AllocRetval7 = MRNoWarning.allocate(1);
-
-  std::pmr::polymorphic_allocator<Foo> PANoWarning;
-  auto AllocRetval8 = PANoWarning.allocate(1);
+  increment(1);
 }
