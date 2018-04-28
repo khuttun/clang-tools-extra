@@ -16,6 +16,7 @@ add_clang_library(clangTidyBugproneModule
   LambdaFunctionNameCheck.cpp
   MacroParenthesesCheck.cpp
   MacroRepeatedSideEffectsCheck.cpp
+  MapSubscriptOperatorLookupCheck.cpp
   MisplacedOperatorInStrlenInAllocCheck.cpp
   MisplacedWideningCastCheck.cpp
   MoveForwardingReferenceCheck.cpp

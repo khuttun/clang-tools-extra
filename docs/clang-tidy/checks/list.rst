@@ -33,6 +33,7 @@ Clang-Tidy Checks
    bugprone-lambda-function-name
    bugprone-macro-parentheses
    bugprone-macro-repeated-side-effects
+   bugprone-map-subscript-operator-lookup
    bugprone-misplaced-operator-in-strlen-in-alloc
    bugprone-misplaced-widening-cast
    bugprone-move-forwarding-reference
@@ -91,8 +92,8 @@ Clang-Tidy Checks
    cppcoreguidelines-pro-type-vararg
    cppcoreguidelines-slicing
    cppcoreguidelines-special-member-functions
-   fuchsia-header-anon-namespaces (redirects to google-build-namespaces) <fuchsia-header-anon-namespaces>
    fuchsia-default-arguments
+   fuchsia-header-anon-namespaces (redirects to google-build-namespaces) <fuchsia-header-anon-namespaces>
    fuchsia-multiple-inheritance
    fuchsia-overloaded-operator
    fuchsia-statically-constructed-objects

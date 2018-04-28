@@ -57,6 +57,11 @@ The improvements are...
 Improvements to clang-tidy
 --------------------------
 
+- New :doc:`bugprone-map-subscript-operator-lookup
+  <clang-tidy/checks/bugprone-map-subscript-operator-lookup>` check
+
+  FIXME: add release notes.
+
 - New module `abseil` for checks related to the `Abseil <https://abseil.io>`_
   library.
 
